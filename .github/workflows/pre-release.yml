@@ -16,7 +16,17 @@ jobs:
         run: echo updating Version Repo!!
         
       - name: Set Release Version
-        run: echo setting release version!!
+        run: |
+            cat pom.xml | grep "^    <version>.*</version>$"
+            version=$(awk -F'[><]' '{print $3}')
+            var="echo $version | awk -F. -v OFS=. 'NF==1{print ++$NF}; NF>1{if(length($NF+1)>length($NF))$(NF-1)++; print}'"
+            mkdir tmp
+            destdir=./DevOps/Versioning/tmp
+
+            if [ -f "$destdir" ]
+            then 
+                echo "$var" > "$destdir"
+            fi
         
       - name: Pre-Build
         run: echo Executing Pre build steps!!
