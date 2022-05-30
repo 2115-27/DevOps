@@ -15,12 +15,15 @@ jobs:
       - name: Pre-Release Task
         run: echo updating Version Repo!!
         
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: 2115-27/DevOps
       - name: Set Release Version
         run: |
             cat pom.xml | grep "^    <version>.*</version>$"
             version=$(awk -F'[><]' '{print $3}')
             var="echo $version | awk -F. -v OFS=. 'NF==1{print ++$NF}; NF>1{if(length($NF+1)>length($NF))$(NF-1)++; print}'"
-            mkdir tmp
             destdir=./DevOps/Versioning/tmp
 
             if [ -f "$destdir" ]
