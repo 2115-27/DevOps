@@ -15,12 +15,8 @@ jobs:
       - name: Pre-Release Task
         run: echo updating Version Repo!!
         
-#       - name: Checkout
-#         uses: actions/checkout@v2
-#         with:
-#           repository: 2115-27/java-maven-sample-war
       - name: Set Release Version
-        uses: ./.github/workflows/versioning.yml
+        run: echo setting release version!! 
            
       - name: Pre-Build
         run: echo Executing Pre build steps!!
