@@ -15,22 +15,13 @@ jobs:
       - name: Pre-Release Task
         run: echo updating Version Repo!!
         
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          repository: 2115-27/java-maven-sample-war
+#       - name: Checkout
+#         uses: actions/checkout@v2
+#         with:
+#           repository: 2115-27/java-maven-sample-war
       - name: Set Release Version
-        run: |
-            cat pom.xml | grep "^    <version>.*</version>$"
-            version=$(awk -F'[><]' '{print $3}')
-            var="echo $version | awk -F. -v OFS=. 'NF==1{print ++$NF}; NF>1{if(length($NF+1)>length($NF))$(NF-1)++; print}'"
-            destdir=./DevOps/Versioning/tmp
-
-            if [ -f "$destdir" ]
-            then 
-                echo "$var" > "$destdir"
-            fi
-        
+        uses: ./.github/workflows/versioning.yml
+           
       - name: Pre-Build
         run: echo Executing Pre build steps!!
         
