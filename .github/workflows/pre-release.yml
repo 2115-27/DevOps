@@ -18,7 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: 2115-27/DevOps
+          repository: 2115-27/java-maven-sample-war
       - name: Set Release Version
         run: |
             cat pom.xml | grep "^    <version>.*</version>$"
